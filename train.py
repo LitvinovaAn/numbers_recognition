@@ -5,7 +5,7 @@ from models import numbers
 import tensorflow as tf
 
 
-def train(data_path, model_fun, input_size, weight_path="numbers.h5", batch_size=32, learning_rate=0.0001, epochs=20):
+def train_numbers(data_path, model_fun, input_size=(64, 64), weight_path="numbers.h5", batch_size=32, learning_rate=0.0001, epochs=20):
 
     train_images1, train_labels1, valid_images1, valid_labels1 = load(data_path)
 
