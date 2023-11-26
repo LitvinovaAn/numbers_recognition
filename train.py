@@ -4,33 +4,36 @@ from loader import load
 from models import numbers
 import tensorflow as tf
 
-data_path = "numbers"
-weights_path = "numbers.h5"
 
-train_images1, train_labels1, valid_images1, valid_labels1 = load(data_path)
+def train(data_path, model_fun, input_size, weight_path="numbers.h5", batch_size=32, learning_rate=0.0001, epochs=20):
 
-train_generator = DataGenerator(8, train_images1, train_labels1, shuffle=True)
-valid_generator = DataGenerator(8, valid_images1, valid_labels1, shuffle=False)
+    train_images1, train_labels1, valid_images1, valid_labels1 = load(data_path)
 
-model = numbers((80, 80, 3))
+    train_generator = DataGenerator(batch_size, train_images1, train_labels1, shuffle=True)
+    valid_generator = DataGenerator(batch_size, valid_images1, valid_labels1, shuffle=False)
 
-model.compile(
-    optimizer=tf.keras.optimizers.Adam(learning_rate=0.0001),
-    loss=tf.keras.losses.SparseCategoricalCrossentropy(),
-    metrics=[tf.keras.metrics.CategoricalAccuracy()]
-)
+    model = model_fun(input_size + (3,))
 
-callbacks = [
-    tf.keras.callbacks.ModelCheckpoint(weights_path, save_best_only=True, period=1, save_weights_only=True)
-]
+    model.compile(
+        optimizer=tf.keras.optimizers.Adam(learning_rate),
+        loss=tf.keras.losses.SparseCategoricalCrossentropy(),
+        metrics=[tf.keras.metrics.SparseCategoricalAccuracy()]
+    )
 
-history = model.fit(train_generator, validation_data=valid_generator, epochs=20, callbacks=callbacks)
+    callbacks = [
+        tf.keras.callbacks.ModelCheckpoint(weight_path, save_best_only=True, period=1, save_weights_only=True)
+    ]
 
-plt.plot(history.history['loss'])
-plt.plot(history.history['val_loss'])
-plt.title('model loss')
-plt.ylabel('loss')
-plt.xlabel('epoch')
-plt.legend(['train', 'test'], loc='upper left')
-plt.show()
+    history = model.fit(train_generator, validation_data=valid_generator, epochs=epochs, callbacks=callbacks)
+
+    plt.plot(history.history['loss'])
+    plt.plot(history.history['val_loss'])
+    plt.title('model loss')
+    plt.ylabel('loss')
+    plt.xlabel('epoch')
+    plt.legend(['train', 'test'], loc='upper left')
+    plt.show()
+
+
+train("numbers", numbers, (64, 64))
 
