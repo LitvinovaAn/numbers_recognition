@@ -33,5 +33,5 @@ def numbers(size):
 
 
 if __name__ == "__main__":
-    my_model = numbers((80, 80, 3))
+    my_model = numbers((64, 64, 3))
     my_model.summary()
