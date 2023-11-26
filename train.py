@@ -35,5 +35,6 @@ def train_numbers(data_path, model_fun, input_size=(64, 64), weight_path="number
     plt.show()
 
 
-train("numbers", numbers, (64, 64))
+if __name__ == "__main__":
+    train_numbers("numbers", numbers, (64, 64))
 
