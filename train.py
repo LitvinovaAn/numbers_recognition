@@ -26,15 +26,16 @@ def train_numbers(data_path, model_fun, input_size=(64, 64), weight_path="number
 
     history = model.fit(train_generator, validation_data=valid_generator, epochs=epochs, callbacks=callbacks)
 
-    plt.plot(history.history['loss'])
-    plt.plot(history.history['val_loss'])
-    plt.title('model loss')
-    plt.ylabel('loss')
-    plt.xlabel('epoch')
-    plt.legend(['train', 'test'], loc='upper left')
-    plt.show()
+    # plt.plot(history.history['loss'])
+    # plt.plot(history.history['val_loss'])
+    # plt.title('model loss')
+    # plt.ylabel('loss')
+    # plt.xlabel('epoch')
+    # plt.legend(['train', 'test'], loc='upper left')
+    # plt.show()
 
 
 if __name__ == "__main__":
     train_numbers("numbers", numbers, (64, 64))
+
 
