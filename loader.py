@@ -4,7 +4,13 @@ import cv2
 
 def image_label(path):
     images = glob(f'{path}/*.jpg')
-    labels = [name.split('-')[2].split('.')[0] for name in images]
+    labels = []
+    labels_files = [open(file, "r").read() for file in glob(f'{path}/*.txt')]
+    for file in labels_files:
+        if file == "":
+            labels.append('100')
+        else:
+            labels.append(''.join([x[0] for x in file.split("\n")]))
 
     return images, labels
 
@@ -17,7 +23,7 @@ def load(path_to_data):
 
 
 if __name__ == '__main__':
-    path = 'numbers'
+    path = 'numbers101'
     train_image, train_label, valid_image, valid_label = load(path)
 
     for i in range(len(train_image)):
