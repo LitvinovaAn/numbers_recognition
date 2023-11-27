@@ -47,11 +47,11 @@ class DataGenerator(tf.keras.utils.Sequence):
 
 
 if __name__ == '__main__':
-    path = 'numbers'
+    path = 'numbers101'
     train_image, train_label, valid_image, valid_label = load(path)
 
-    train_generator = DataGenerator(8, train_image, train_label, input_size=(64, 64))
-    valid_generator = DataGenerator(8, valid_image, valid_label, input_size=(64, 64))
+    train_generator = DataGenerator(8, train_image, train_label, input_size=(64, 64), shuffle=True)
+    valid_generator = DataGenerator(8, valid_image, valid_label, input_size=(64, 64), shuffle=False)
 
     for i in range(train_generator.__len__()):
         x, y = train_generator.__getitem__(i)
