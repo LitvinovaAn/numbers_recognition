@@ -58,8 +58,8 @@ if __name__ == '__main__':
 
         for xi, yi in zip(x, y):
             img = xi.astype("uint8")
-            cv2.putText(img, f"{yi}", (10, 25), 1, 1.4, (255, 0, 0), 3)
-            cv2.putText(img, f"{yi}", (10, 25), 1, 1.4, (255, 255, 0), 1)
+            cv2.putText(img, f"{yi}", (10, 25), 1, 1, (255, 0, 0), 3)
+            cv2.putText(img, f"{yi}", (10, 25), 1, 1, (255, 255, 0), 1)
             cv2.imshow("img", img)
             cv2.waitKey(0)
 

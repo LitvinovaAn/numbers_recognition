@@ -6,8 +6,10 @@ from models import numbers
 
 
 input_size = (64, 64)
-path_to_data = "numbers101/test"
+path_to_data = "numbers/test"
 images = glob(f"{path_to_data}/*.jpg")
+# path_to_data = "test"
+# images = glob(f"{path_to_data}/*.*")
 model = numbers(input_size + (3,))
 weights_path = "numbers.h5"
 model.load_weights(weights_path)
