@@ -5,7 +5,16 @@ from models import numbers
 import tensorflow as tf
 
 
-def train_numbers(data_path, model_fun, input_size=(64, 64), weight_path="numbers.h5", batch_size=32, learning_rate=0.0001, epochs=20):
+def train_numbers(
+        data_path,
+        model_fun,
+        input_size=(64, 64),
+        weight_path="numbers.h5",
+        batch_size=32,
+        learning_rate=0.0001,
+        epochs=20,
+        load_weights=None
+):
 
     train_images1, train_labels1, valid_images1, valid_labels1 = load(data_path)
 
@@ -13,6 +22,9 @@ def train_numbers(data_path, model_fun, input_size=(64, 64), weight_path="number
     valid_generator = DataGenerator(batch_size, valid_images1, valid_labels1, shuffle=False)
 
     model = model_fun(input_size + (3,))
+
+    if load_weights is not None:
+        model.load_weights(load_weights)
 
     model.compile(
         optimizer=tf.keras.optimizers.Adam(learning_rate),
@@ -36,6 +48,6 @@ def train_numbers(data_path, model_fun, input_size=(64, 64), weight_path="number
 
 
 if __name__ == "__main__":
-    train_numbers("numbers", numbers, (64, 64))
+    train_numbers("numbers101", numbers, (64, 64))
 
 
