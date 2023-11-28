@@ -17,7 +17,7 @@ def image_label(path):
 
 def load(path_to_data):
     train_image, train_label = image_label(f'{path_to_data}/train')
-    valid_image, valid_label = image_label(f'{path_to_data}/train')
+    valid_image, valid_label = image_label(f'{path_to_data}/test')
 
     return train_image, train_label, valid_image, valid_label
 
