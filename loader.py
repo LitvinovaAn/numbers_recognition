@@ -5,7 +5,7 @@ import cv2
 def image_label(path):
     images = glob(f'{path}/*.jpg')
     labels = []
-    labels_files = [open(file, "r").read() for file in glob(f'{path}/*.txt')]
+    labels_files = [open(file.replace('.jpg', '.txt'), "r").read() for file in images]
     for file in labels_files:
         if file == "":
             labels.append('100')
